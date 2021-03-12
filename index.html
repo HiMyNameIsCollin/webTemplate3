@@ -11,9 +11,12 @@
 </head>
 <body>
 	<header class='header'>
-		<span class='header__logo'> YourName.</span>
-		<span class='header__icon header__icon--search'><i class="fas fa-search"></i></span>
-		<span class='header__icon header__icon--menu'><i class="fas fa-bars"></i></span>
+		<div class='header__main'>
+			<span class='header__logo'> YourName.</span>
+			<span class='header__icon header__icon--search'><i class="fas fa-search"></i></span>
+			<span class='header__icon header__icon--menu'><i class="fas fa-bars"></i></span>		
+		</div>
+
 		<nav class='header__navWrap'>
 			<ul class='header__nav'>
 				<li class='header__nav__item header__nav__item--active' >
@@ -21,27 +24,43 @@
 				</li>
 				<li id='categorySubMenu' class='header__nav__item' >
 					<a>Categories<i class="fas fa-chevron-down"></i></a>
-					
 					<ul class='subMenu subMenu--closed'>
 						<li>
-							Technology
+							<a>Technology</a>
 						</li>
 						<li>
-							Lifestyle
+							<a>Lifestyle</a>
 						</li>
 						<li>
-							Food
+							<a>Food</a>
 						</li>
 						<li>
-							Design
+							<a>Design</a>
 						</li>
 						<li>
-							Social
+							<a>Social</a>
 						</li>
 					</ul>
 				</li>
-				<li class='header__nav__item' >
-					<a>Posts</a>
+				<li id='postsSubMenu' class='header__nav__item' >
+					<a>Posts<i class="fas fa-chevron-down"></i></a>
+					<ul class='subMenu subMenu--closed'>
+						<li>
+							<a>Technology</a>
+						</li>
+						<li>
+							<a>Lifestyle</a>
+						</li>
+						<li>
+							<a>Food</a>
+						</li>
+						<li>
+							<a>Design</a>
+						</li>
+						<li>
+							<a>Social</a>
+						</li>
+					</ul>
 				</li>
 				<li class='header__nav__item' >
 					<a> About</a>
@@ -58,10 +77,16 @@
 				<li class='header__nav__item header__nav__item--icon' href="" alt='Facebook'><i class="fab fa-facebook-f"></i></li>
 			</ul>	
 		</nav>
-
 	</header>
-	<section >
-
+	<section class='content'>
+		<header class='content__header'>
+			<h1> Category: All</h1>
+		</header>
+		<div class='content__masonWrap'>
+			<div class='mason'>
+				<div class='mason__sizer'></div>
+			</div>
+		</div>
 	</section>
 </body>
 </html>

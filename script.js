@@ -1,27 +1,27 @@
-
+const handleMenu = (element, navState) => {
+	if(navState){
+		element.classList.add(element.classList[0] + '--closed')
+		setTimeout(() => {
+			element.classList.remove(element.classList[0] + '--open')
+		},250)
+	} else {
+		element.classList.remove(element.classList[0] + '--closed')
+		element.classList.add(element.classList[0] + '--open')
+	}
+}
+const pageHeader = document.querySelector('.header')
+let navOpen = false
+pageHeader.children[0].children[2].addEventListener('click', () => { handleMenu(pageHeader.children[1], navOpen), !navOpen ? navOpen = true : navOpen = false })
 
 class SubMenu {
 	constructor(element){
 		this.menuOpen = false
-		this.menuActive = false
 		this.selector = element.children[0]
 		this.menu = element.children[1]
-		this.selector.addEventListener('click', () => this.handleMenu())
-		this.handleMenu = function(){
-			if(!this.menuOpen){
-				this.menu.classList.add('subMenu--open')
-				this.menu.classList.remove('subMenu--closed')
-				this.menuOpen = true
-			} else {
-				this.menu.classList.add('subMenu--closed')
-				setTimeout(() => {
-					this.menu.classList.remove('subMenu--open')
-				},250)
-				this.menuOpen = false
-			}
-		}
+		this.selector.addEventListener('click', () => {handleMenu(this.menu, this.menuOpen), !this.menuOpen ? this.menuOpen = true : this.menuOpen = false})
 	}
 }
 
-const categorySubMenu = new SubMenu(document.querySelector('#categorySubMenu'))
+new SubMenu(document.querySelector('#categorySubMenu'))
+new SubMenu(document.querySelector('#postsSubMenu'))
 
