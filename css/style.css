@@ -21,14 +21,83 @@ ul {
   position: relative;
 }
 
+.content {
+  background: #c1c1c1;
+  min-height: 100vh;
+  padding: 4rem 0 0 0;
+}
+.content__masonWrap {
+  width: 100%;
+}
+@media only screen and (min-width: 576px) {
+  .content {
+    padding: 4rem 6rem 0 6rem;
+  }
+}
 @media only screen and (min-width: 1200px) {
   .content {
-    padding: 6rem 6rem 0 320px;
+    padding: 4rem 6rem 0 320px;
+  }
+}
+@media only screen and (min-width: 1800px) {
+  .content__masonWrap {
+    max-width: 80%;
+  }
+}
+@media only screen and (min-width: 2200px) {
+  .content__masonWrap {
+    max-width: 90%;
   }
 }
 
+.search {
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+.mason {
+  position: relative;
+  width: auto;
+}
+.mason__sizer, .mason__brick {
+  width: 100%;
+}
+@media only screen and (min-width: 800px) {
+  .mason__sizer, .mason__brick {
+    width: 50%;
+  }
+}
+@media only screen and (min-width: 1600px) {
+  .mason__sizer, .mason__brick {
+    width: 33%;
+  }
+}
+@media only screen and (min-width: 1800px) {
+  .mason__sizer, .mason__brick {
+    width: 25%;
+  }
+}
+@media only screen and (min-width: 720px) {
+  .mason__sizer {
+    float: left;
+  }
+}
+.mason__brick {
+  padding: 1rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.mason__brick__thumb img {
+  height: auto;
+  max-width: 100%;
+}
+.mason__brick__blurb {
+  background: white;
+}
+
 .header {
-  align-items: center;
   background: black;
   color: white;
   display: flex;
@@ -39,8 +108,10 @@ ul {
   position: fixed;
   overflow: auto;
   width: 100%;
+  z-index: 3;
 }
 .header__main {
+  align-items: center;
   display: flex;
   width: 100%;
 }
@@ -65,7 +136,7 @@ ul {
   display: none;
   flex-direction: column;
   justify-content: space-between;
-  padding: 6rem 1.9rem 0 1.5rem;
+  padding: 3rem 1.9rem 0 1.5rem;
   height: calc(100vh - 3rem);
   width: 100%;
 }
@@ -121,7 +192,7 @@ ul {
 }
 @media only screen and (min-width: 576px) {
   .header__navWrap {
-    padding: 6rem 6rem 0 6rem;
+    padding: 3rem 6rem 0 6rem;
   }
 }
 @media only screen and (min-width: 1200px) {
@@ -140,6 +211,7 @@ ul {
     display: flex;
     padding: 0;
     height: 100%;
+    padding: 0;
     visibility: visible;
   }
   .header__nav__item a:hover {
