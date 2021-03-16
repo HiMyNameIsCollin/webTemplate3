@@ -38,32 +38,29 @@ const oneColumn = (bricks) => {
 		return total
 	},0)
 }
-const twoColumn = (bricks) => {
-	let columns = {
-		firstCol: 0,
-		secondCol: 0,
-	}
+const twoColumn = (bricks, columns) => {
 	bricks.reduce(function(columns, card, i){
 		if(columns.firstCol <= columns.secondCol){
 			card.style.top = columns.firstCol + 'px'
+			card.style.left = 0 + 'px'
 			columns.firstCol += card.offsetHeight
 		} else {
 			card.style.top = columns.secondCol + 'px'
 			card.style.left = 50 + '%'
 			columns.secondCol += card.offsetHeight
 		}
+		if(i === bricks.length - 1){
+			columns.firstCol > columns.secondCol ? mason.style.height = columns.firstCol + 'px' : mason.style.height = columns.secondCol + 'px'
+		}
 		return columns
 	}, columns)	
 }
-const threeColumn = (bricks) => {
-	let columns = {
-		firstCol: 0,
-		secondCol: 0,
-		thirdCol: 0,
-	}
+const threeColumn = (bricks, columns) => {
 	bricks.reduce(function(columns, card, i){
+		console.log(card)
 		if(columns.firstCol <= columns.secondCol && columns.firstCol <= columns.thirdCol){
 			card.style.top = columns.firstCol + 'px'
+			card.style.left = 0 + 'px'
 			columns.firstCol += card.offsetHeight
 		} else if (columns.secondCol <= columns.firstCol && columns.secondCol <= columns.thirdCol){
 			card.style.top = columns.secondCol + 'px'
@@ -74,23 +71,66 @@ const threeColumn = (bricks) => {
 			card.style.left = 66 + '%'
 			columns.thirdCol += card.offsetHeight
 		}
+		if(i === bricks.length - 1){
+			let tallest = 0
+			for (const value in columns){
+				if(columns[value] > tallest){
+					tallest = columns[value]
+				}
+			}
+			mason.style.height = tallest + 'px'
+		}
 		return columns
 	}, columns)		
 }
-const fourColumn = () => {
-	
-}
-const masonPosition = (element, width) => {
+const fourColumn = (bricks, columns) => {
+	bricks.reduce(function(columns, card, i){
+		if(columns.firstCol <= columns.secondCol && columns.firstCol <= columns.thirdCol && columns.firstCol <= columns.fourthCol){
+			card.style.top = columns.firstCol + 'px'
+			card.style.left = 0 + 'px'
+			columns.firstCol += card.offsetHeight
+		} else if (columns.secondCol <= columns.firstCol && columns.secondCol <= columns.thirdCol && columns.secondCol <= columns.fourthCol){
+			card.style.top = columns.secondCol + 'px'
+			card.style.left = 25 + '%'
+			columns.secondCol += card.offsetHeight
+		} else if (columns.thirdCol <= columns.firstCol && columns.thirdCol <= columns.secondCol && columns.thirdCol <= columns.fourthCol){
+			card.style.top = columns.thirdCol + 'px'
+			card.style.left = 50 + '%'
+			columns.thirdCol += card.offsetHeight
+		} else if (columns.fourthCol <= columns.firstCol && columns.fourthCol <= columns.secondCol && columns.fourthCol <= columns.thirdCol){
+			card.style.top = columns.fourthCol + 'px'
+			card.style.left = 75 + '%'
+			columns.fourthCol += card.offsetHeight		
+		}
+		if(i === bricks.length - 1){
+			let tallest = 0
+			for (const value in columns){
+				if(columns[value] > tallest){
+					tallest = columns[value]
+				}
+			}
+			mason.style.height = tallest + 'px'
+		}
+		return columns
+	}, columns)		
+}	
 
+const masonPosition = (element, width) => {
+	let columns = {
+		firstCol: 0,
+		secondCol: 0,
+		thirdCol: 0,
+		fourthCol: 0
+	}
 	const bricks = Array.from(element.children).slice(1)
 	if(width < 800){
 		oneColumn(bricks)
 	} else if(width < 1600){
-		twoColumn(bricks)
+		twoColumn(bricks, columns)
 	} else if(width < 1800){
-		threeColumn(bricks)
-	} else {
-		fourColumn(bricks)
+		threeColumn(bricks, columns)
+	} else if(width > 1800) {
+		fourColumn(bricks, columns)
 	}
 }
 
