@@ -77,11 +77,6 @@ ul {
     width: 25%;
   }
 }
-@media only screen and (min-width: 720px) {
-  .mason__sizer {
-    float: left;
-  }
-}
 .mason__brick {
   position: absolute;
   top: 0;

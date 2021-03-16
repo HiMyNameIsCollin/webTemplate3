@@ -30,7 +30,7 @@ const mason = document.querySelector('.mason')
 const oneColumn = (bricks) => {
 	bricks.reduce(function(acc, card, i){
 		card.style.top = acc + 'px'
-		card.style.left = 0
+		card.style.left = 0 + 'px'
 		let total = acc + card.offsetHeight
 		if(i === bricks.length - 1){
 			mason.style.height = total + 'px'
@@ -57,7 +57,6 @@ const twoColumn = (bricks, columns) => {
 }
 const threeColumn = (bricks, columns) => {
 	bricks.reduce(function(columns, card, i){
-		console.log(card)
 		if(columns.firstCol <= columns.secondCol && columns.firstCol <= columns.thirdCol){
 			card.style.top = columns.firstCol + 'px'
 			card.style.left = 0 + 'px'
@@ -141,3 +140,11 @@ window.onload = function() {
 window.onresize = function(){
 	masonPosition(mason, document.documentElement.offsetWidth)
 }
+
+const orientChange = () => {
+	setTimeout(() => {
+		masonPosition(mason, document.documentElement.offsetWidth)
+	}, 300)
+}
+
+window.addEventListener('orientationchange', orientChange)
