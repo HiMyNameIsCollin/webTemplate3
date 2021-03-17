@@ -5,6 +5,7 @@ $grey: #c1c1c1
 a
 	color: inherit
 	cursor: pointer
+	text-decoration: none
 
 ul
 	list-style: none
@@ -16,6 +17,8 @@ ul
 	margin: 0
 	padding: 0
 	transition: all .25s ease-in-out
+	scroll-behavior: smooth
+	-webkit-scroll-behavior: smooth
 	z-index: 2
 
 .blockWrapper
@@ -27,20 +30,100 @@ ul
 	padding: 4rem 0 0 0 
 	&__header
 	&__masonWrap
+		padding: 0 2rem
 		width: 100%
 	@media only screen and (min-width: 576px)
 		padding: 4rem 6rem 0 6rem
 	@media only screen and (min-width: 1200px)
 		&__masonWrap
-			max-width: 90%
+			border-right: solid white 1px
 		padding: 4rem 6rem 0 320px
-	@media only screen and (min-width:1800px)
-		&__masonWrap
-			max-width: 90%
-.search
-	position: fixed
-	right: 0
+
+.bigSearchButton
+	background: $grey
+	color: white
+	display: none
+	font-size: 1.5rem
 	top: 0
+	right: 5.25rem
+	padding-bottom: 8rem
+	padding-top: 1rem
+	position: fixed
+	text-decoration: none
+	text-orientation: mixed
+	transform: rotate(180deg)
+	writing-mode: vertical-rl
+	i
+		padding: 1rem 0
+		transform: rotate(180deg)
+	@media only screen and (min-width:1200px)
+		display: block
+
+.searchWindow
+	align-items: center
+	background: white
+	display: none
+	font-weight: 700
+	flex-direction: column
+	justify-content: center
+	position: fixed
+	text-align: center
+	top: 0
+	left: 0
+	height: 100vh
+	opacity: 0
+	width: 100vw
+	z-index: 4
+	&__closeBtn
+		font-size: 2rem
+		position: absolute
+		top: 1rem
+		left: calc(50% - 1rem)
+	&__form
+	&__label
+	&__input
+		border: none
+		border-bottom: solid 1px $grey
+		color: black
+		font-size: 2rem
+		font-weight: 700
+		text-align: center
+		padding: 2rem
+		&:focus
+			outline: none
+	span:nth-last-of-type(1)
+		padding: 1rem 0
+	@media only screen and (min-width: 576px)
+		&__input
+			font-size: 3rem
+	&--open
+		animation: menuSlideDown .25s forwards ease-in-out
+		display: flex
+	&--closed
+		animation: menuSlideUp .25s forwards ease-in-out
+
+
+
+.smoothScroll
+	background: black
+	bottom: -25%
+	color: white
+	display: block
+	right: 0
+	position: absolute
+	padding: 1rem
+	opacity: 0
+	&--active
+		animation: .25s slideUp ease-in-out forwards
+		bottom: 0
+		position: fixed
+	&--inactive 
+		animation: .25s slideDown ease-in-out forwards
+		position: fixed
+	@media only screen and (min-width: 1200px)
+		bottom: 5%
+		font-size: 2rem
+		right: 4.25rem
 
 .mason
 	position: relative
@@ -61,16 +144,12 @@ ul
 	padding: 1rem
 	&__thumb
 		background: white
-
-		border-bottom: none
 		width: 100%
 		img
 			height: auto
 			max-width: 100%
 	&__blurb
 		background: white
-
-		border-top: none
 		padding: 2rem
 		h2
 			font-weight: 400
@@ -119,10 +198,10 @@ ul
 		height: calc(100vh - 3rem)
 		width: 100%
 		&--open
-			animation: slideDown .25s forwards ease-in-out
+			animation: menuSlideDown .25s forwards ease-in-out
 			display: flex
 		&--closed
-			animation: slideUp .25s forwards ease-in-out
+			animation: menuSlideUp .25s forwards ease-in-out
 	&__nav
 		display: flex
 		flex-direction: column
@@ -172,6 +251,7 @@ ul
 		&__icon
 			display: none
 		&__navWrap
+			animation: none
 			display: flex
 			padding: 0
 			height: 100%
@@ -202,12 +282,12 @@ ul
 	li
 		padding: .5rem 0
 	&--open
-		animation: slideDown .25s forwards ease-in-out
+		animation: menuSlideDown .25s forwards ease-in-out
 		display: block
 	&--closed
-		animation: slideUp .25s forwards ease-in-out
+		animation: menuSlideUp .25s forwards ease-in-out
 
-@keyframes slideDown
+@keyframes menuSlideDown
 	0%
 		clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)
 		transform: translateY(-50%)
@@ -219,7 +299,7 @@ ul
 		clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)
 
 
-@keyframes slideUp
+@keyframes menuSlideUp
 	0%
 		clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)
 		opacity: 1
@@ -231,3 +311,18 @@ ul
 		clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)
 		opacity: 0
 		transform: translateY(-50%)
+
+@keyframes slideUp
+	0%
+		transform: translateY(100%)
+	100%
+		opacity: 1
+		transform: translateY(0%)
+
+@keyframes slideDown
+	0%
+		opacity: 1
+		transform: translateY(0%)
+	100%
+		opacity: 0
+		transform: translateY(100%)

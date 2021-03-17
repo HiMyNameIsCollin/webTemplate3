@@ -1,3 +1,4 @@
+/*#####MENU######*/
 const handleMenu = (element, navState) => {
 	if(navState){
 		element.classList.add(element.classList[0] + '--closed')
@@ -9,9 +10,6 @@ const handleMenu = (element, navState) => {
 		element.classList.add(element.classList[0] + '--open')
 	}
 }
-const pageHeader = document.querySelector('.header')
-let navOpen = false
-pageHeader.children[0].children[2].addEventListener('click', () => { handleMenu(pageHeader.children[1], navOpen), !navOpen ? navOpen = true : navOpen = false })
 
 class SubMenu {
 	constructor(element){
@@ -21,12 +19,14 @@ class SubMenu {
 		this.selector.addEventListener('click', () => {handleMenu(this.menu, this.menuOpen), !this.menuOpen ? this.menuOpen = true : this.menuOpen = false})
 	}
 }
-
 new SubMenu(document.querySelector('#categorySubMenu'))
 new SubMenu(document.querySelector('#postsSubMenu'))
+const pageHeader = document.querySelector('.header')
+let navOpen = false
+pageHeader.children[0].children[2].addEventListener('click', () => { handleMenu(pageHeader.children[1], navOpen), !navOpen ? navOpen = true : navOpen = false })
 
+/*#####MASONRY#####*/
 const mason = document.querySelector('.mason')
-
 const oneColumn = (bricks) => {
 	bricks.reduce(function(acc, card, i){
 		card.style.top = acc + 'px'
@@ -132,19 +132,46 @@ const masonPosition = (element, width) => {
 		fourColumn(bricks, columns)
 	}
 }
+window.onload = () =>  masonPosition(mason, document.documentElement.offsetWidth)
+window.onresize = () =>  masonPosition(mason, document.documentElement.offsetWidth)
+window.addEventListener('orientationchange', () => setTimeout(() => masonPosition(mason, document.documentElement.offsetWidth),300))
 
-window.onload = function() {
-	masonPosition(mason, document.documentElement.offsetWidth)
+/*#####SMOOTH SCROLL#####*/
+
+const scrollDistance = () => {
+  let winScroll = document.body.scrollTop || document.documentElement.scrollTop
+  let height = document.documentElement.scrollHeight - document.documentElement.clientHeight
+  let scrolled = (winScroll / height) * 100
+  return scrolled
 }
 
-window.onresize = function(){
-	masonPosition(mason, document.documentElement.offsetWidth)
+const showSmoothScroll = () => {
+	document.querySelector('.smoothScroll').classList.remove('smoothScroll--inactive')
+	document.querySelector('.smoothScroll').classList.add('smoothScroll--active')
 }
-
-const orientChange = () => {
+const hideSmoothScroll = () => {
+	document.querySelector('.smoothScroll').classList.add('smoothScroll--inactive')
 	setTimeout(() => {
-		masonPosition(mason, document.documentElement.offsetWidth)
-	}, 300)
-}
+		document.querySelector('.smoothScroll').classList.remove('smoothScroll--active')
+	},100)
 
-window.addEventListener('orientationchange', orientChange)
+}
+window.addEventListener('scroll' , () => {
+	if(scrollDistance() > 25){
+		showSmoothScroll()	
+	}else {
+		hideSmoothScroll()
+	}
+})
+
+/*#####SEARCH WINDOW######*/
+let searchOpen = false
+const searchButtons = [document.querySelector('.bigSearchButton'), document.querySelector('.header__icon--search'), document.querySelector('.searchWindow__closeBtn')]
+searchButtons.forEach((btn, i) => btn.addEventListener('click', () => { handleMenu(document.querySelector('.searchWindow'), searchOpen ), !searchOpen ? searchOpen = true : searchOpen = false }))
+
+/*#####SMOOTH SCROLL####*/
+const handleScrollUp = () => {
+  document.body.scrollTop = 0
+  document.documentElement.scrollTop = 0
+}
+document.querySelector('.smoothScroll').addEventListener('click', handleScrollUp)
